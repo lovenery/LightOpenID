@@ -3,15 +3,15 @@ and translate it readability for chinese users
 
 # LightOpenID
 
-Lightweight PHP5 library for easy OpenID authentication.
+輕量的OpenID認證library(PHP5)
 
-* `版本:` [**1.3.1** :arrow_double_down:][1] ( *看 [改版日誌][2] 更詳細* )
+* `版本:` [**1.3.1** :arrow_double_down:][1] ( *看 [原作者的改版日誌][2] 更詳細* )
 * `發佈於:` 2016年 3月4號
-* `原始碼:` [Official GitHub Repo :octocat:][3]
+* `作者的原始碼:` [Official GitHub Repo :octocat:][3]
 * `作者:` [Mewp][4]
 
 [1]: https://github.com/lovenery/LightOpenID/archive/master.zip
-[2]: https://github.com/lovenery/LightOpenID/blob/master/CHANGELOG.md
+[2]: https://github.com/iignatov/LightOpenID/blob/master/CHANGELOG.md
 [3]: https://github.com/Mewp/lightopenid
 [4]: https://github.com/Mewp
 
@@ -20,7 +20,9 @@ Lightweight PHP5 library for easy OpenID authentication.
 
 ### 加到 composer.json
 
-或 `composer require lovenery/lightopenid`
+`composer require lovenery/lightopenid`
+
+或
 
 ```javascript
 "repositories": [
@@ -38,7 +40,7 @@ Lightweight PHP5 library for easy OpenID authentication.
 
 ### 兩個步驟 登入 OpenID :
 
-  1. Authentication with the provider:
+  1. (Authentication)認證使用provider:
 
      ```php
      $openid = new LightOpenID('my-host.example.org');
@@ -50,7 +52,7 @@ Lightweight PHP5 library for easy OpenID authentication.
 
      The provider then sends various parameters via GET, one of which is `openid_mode`.
 
-  2. Verification:
+  2. (Verification)驗證是否成功:
 
      ```php
      $openid = new LightOpenID('my-host.example.org');
@@ -66,7 +68,7 @@ Lightweight PHP5 library for easy OpenID authentication.
    除非你知道自己在幹麻
 
    選擇性地, 你可以設定 `$returnUrl` 和 `$realm` (或 `$trustRoot`, which is an alias).
-   The default values for those are:
+   程式的初始值是以下:
 
    ```php
    $openid->realm = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
