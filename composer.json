@@ -1,5 +1,5 @@
 {
-	"name": "iignatov/lightopenid",
+	"name": "lovenery/lightopenid",
 	"type": "library",
 	"description": "Lightweight PHP5 library for easy OpenID authentication.",
 	"keywords": ["openid", "authentication", "security"],
