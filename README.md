@@ -10,8 +10,8 @@ Lightweight PHP5 library for easy OpenID authentication.
 * `原始碼:` [Official GitHub Repo :octocat:][3]
 * `作者:` [Mewp][4]
 
-[1]: https://github.com/iignatov/LightOpenID/archive/master.zip
-[2]: https://github.com/iignatov/LightOpenID/blob/master/CHANGELOG.md
+[1]: https://github.com/lovenery/LightOpenID/archive/master.zip
+[2]: https://github.com/lovenery/LightOpenID/blob/master/CHANGELOG.md
 [3]: https://github.com/Mewp/lightopenid
 [4]: https://github.com/Mewp
 
@@ -30,7 +30,7 @@ Lightweight PHP5 library for easy OpenID authentication.
 
 "require": {
   "php": ">=5.4.0",
-  "iignatov/lightopenid": "1.3.1"
+  "lovenery/lightopenid": "1.3.1"
 }
 ```
 
@@ -71,4 +71,4 @@ Lightweight PHP5 library for easy OpenID authentication.
   $openid->getAttributes();
   ```
 
-  更多使用方法可以看 [USAGE.md](http://github.com/iignatov/LightOpenID/blob/master/USAGE.md).
+  更多使用方法可以看 [USAGE.md](http://github.com/lovenery/LightOpenID/blob/master/USAGE.md).
