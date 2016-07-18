@@ -1,5 +1,5 @@
 I fork form [https://github.com/iignatov/LightOpenID](https://github.com/iignatov/LightOpenID)  
-and translate it
+and translate it readability for chinese users
 
 # LightOpenID
 
@@ -19,6 +19,8 @@ Lightweight PHP5 library for easy OpenID authentication.
 ## 快速開始
 
 ### 加到 composer.json
+
+或 `composer require lovenery/lightopenid`
 
 ```javascript
 "repositories": [
@@ -45,6 +47,9 @@ Lightweight PHP5 library for easy OpenID authentication.
 
      header('Location: ' . $openid->authUrl());
      ```
+
+     The provider then sends various parameters via GET, one of which is `openid_mode`.
+
   2. Verification:
 
      ```php
@@ -54,6 +59,20 @@ Lightweight PHP5 library for easy OpenID authentication.
        echo $openid->validate() ? 'Logged in.' : 'Failed!';
      }
      ```
+
+### 註:
+
+   變更 'my-host.example.org' 變更成你的 domain name. 不要用 `$_SERVER['HTTP_HOST']`
+   除非你知道自己在幹麻
+
+   選擇性地, 你可以設定 `$returnUrl` 和 `$realm` (或 `$trustRoot`, which is an alias).
+   The default values for those are:
+
+   ```php
+   $openid->realm = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+   $openid->returnUrl = $openid->realm . $_SERVER['REQUEST_URI'];
+   ```
+
 
 ### 也支援 AX and SREG extensions:
 
@@ -71,4 +90,86 @@ Lightweight PHP5 library for easy OpenID authentication.
   $openid->getAttributes();
   ```
 
-  更多使用方法可以看 [USAGE.md](http://github.com/lovenery/LightOpenID/blob/master/USAGE.md).
+## 基本設定選項詳細(可略):
+
+  <table>
+    <tr>
+      <th>名字</th>
+      <th>詳細</th>
+    </tr>
+    <tr>
+      <td>identity</td>
+      <td>
+        Sets (or gets) the identity supplied by an user. Set it
+        before calling authUrl(), and get after validate().
+      </td>
+    </tr>
+    <tr>
+      <td>returnUrl</td>
+      <td>
+        Users will be redirected to this url after they complete
+        authentication with their provider. Default: current url.
+      </td>
+    </tr>
+    <tr>
+      <td>realm</td>
+      <td>
+        The realm user is signing into. Providers usually say
+        "You are sgning into $realm". Must be in the same domain
+        as returnUrl. Usually, this should be the host part of
+        your site's url. And that's the default.
+      </td>
+    </tr>
+    <tr>
+      <td>required and optional</td>
+      <td>
+        Attempts to fetch more information about an user.
+        See <a href="#common-ax-attributes">Common AX attributes</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>verify_peer</td>
+      <td>
+        When using https, attempts to verify peer's certificate.
+        See <a href="http://php.net/manual/en/function.curl-setopt.php">CURLOPT_SSL_VERIFYPEER</a>.
+      </td>
+    </tr>
+    <tr>
+      <td>cainfo and capath</td>
+      <td>
+        When verify_peer is true, sets the CA info file and directory.
+        See <a href="http://php.net/manual/en/function.curl-setopt.php">CURLOPT_SSL_CAINFO</a>
+        and <a href="http://php.net/manual/en/function.curl-setopt.php">CURLOPT_SSL_CAPATH</a>.
+      </td>
+    </tr>
+  </table>
+
+
+### Common AX attributes (可略)
+
+    Here is a list of the more common AX attributes (from [axschema.org](http://www.axschema.org/types/)):
+
+    Name                    | Meaning
+    ------------------------|---------------
+    namePerson/friendly     | Alias/Username
+    contact/email           | Email
+    namePerson              | Full name
+    birthDate               | Birth date
+    person/gender           | Gender
+    contact/postalCode/home | Postal code
+    contact/country/home    | Country
+    pref/language           | Language
+    pref/timezone           | Time zone
+
+    Note that even if you mark some field as required, there is no guarantee that you'll get any
+    information from a provider. Not all providers support all of these attributes, and some don't
+    support these extensions at all.
+
+    Google, for example, completely ignores optional parameters, and for the required ones, it supports,
+    according to [it's website](http://code.google.com/apis/accounts/docs/OpenID.html):
+
+    * namePerson/first (first name)
+    * namePerson/last (last name)
+    * contact/country/home
+    * contact/email
+    * pref/language
